@@ -63,7 +63,7 @@ function Main
             Exit
         }
     }
-    $Users | Export-CSV -Path ".\cloud.csv" -notype
+    $Users | Export-CSV -Path ".\cloud.csv" -notype -Append
     (Get-Content ".\cloud.csv") | %{$_ -replace '"', ''} | Set-Content ".\cloud.csv" -Encoding Unicode
     Write-Host "CSV File Successfully Exported to cloud.csv" -ForeGroundColor Green
 }

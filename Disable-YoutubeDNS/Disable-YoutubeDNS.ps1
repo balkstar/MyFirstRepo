@@ -20,5 +20,8 @@ if (Test-NetConnection -ComputerName $DNSServer -CommonTCPPort WINRM -Informatio
             Write-Host "Creating DNS Zone $Address on $DNSServer"
             Add-DnsServerPrimaryZone -ComputerName $DNSServer -Name $Address -ZoneFile "$Address.DNS" -whatif
         }
+        else{
+            Write-Host "Zone $Address already exists on $DNSServer"
+        }
     }
 }

@@ -16,9 +16,9 @@ Import-Module dnsserver
 if (Test-NetConnection -ComputerName $DNSServer -CommonTCPPort WINRM -InformationLevel Quiet) {
     $CurrentZones = Get-DnsServerZone -ComputerName $DNSServer
     Foreach ($Address in $AddressList) {
-        if ($Address -like $CurrentZones.ZoneName){
+        if ($CurrentZones.ZoneName -like $Address){
             Write-Host "Deleting DNS Zone $Address on $DNSServer"
-            Remove-DnsServerZone -ComputerName $DNSServer -Name $Address -whatif
+            Remove-DnsServerZone -ComputerName $DNSServer -Name $Address -Force
         }
         else{
             Write-Host "Zone $Address is already deleted on $DNSServer"

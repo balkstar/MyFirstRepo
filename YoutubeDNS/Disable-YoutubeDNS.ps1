@@ -16,9 +16,9 @@ Import-Module dnsserver
 if (Test-NetConnection -ComputerName $DNSServer -CommonTCPPort WINRM -InformationLevel Quiet) {
     $CurrentZones = Get-DnsServerZone -ComputerName $DNSServer
     Foreach ($Address in $AddressList) {
-        if ($Address -notlike $CurrentZones.ZoneName){
+        if ($CurrentZones.ZoneName -notlike $Address){
             Write-Host "Creating DNS Zone $Address on $DNSServer"
-            Add-DnsServerPrimaryZone -ComputerName $DNSServer -Name $Address -ZoneFile "$Address.DNS" -whatif
+            Add-DnsServerPrimaryZone -ComputerName $DNSServer -Name $Address -ZoneFile "$Address.DNS"
         }
         else{
             Write-Host "Zone $Address already exists on $DNSServer"

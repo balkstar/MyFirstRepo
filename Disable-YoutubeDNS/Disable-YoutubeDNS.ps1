@@ -9,7 +9,7 @@
 #>
 
 $DNSServer = "pdc2.ross-wa.net"
-$AddressList - @("youtube.com","tiktok.com")
+$AddressList = @("youtube.com","tiktok.com")
 
 Import-Module dnsserver
 
@@ -17,7 +17,7 @@ if (Test-NetConnection -ComputerName $DNSServer -CommonTCPPort WINRM -Informatio
     $CurrentZones = Get-DnsServerZone -ComputerName $DNSServer
     Foreach ($Address in $AddressList) {
         if ($Address -notlike $CurrentZones.ZoneName){
-            Write-Host "Creating DNS Zone $Address on $Server"
+            Write-Host "Creating DNS Zone $Address on $DNSServer"
             Add-DnsServerPrimaryZone -ComputerName $DNSServer -Name $Address -ZoneFile "$Address.DNS" -whatif
         }
     }
